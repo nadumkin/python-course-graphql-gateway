@@ -16,6 +16,23 @@ class PlacesClient(BaseClient):
     def base_url(self) -> str:
         return settings.service.favorite_places.base_url
 
+    def get_place(self, place_id: int) -> Optional[PlaceModel]:
+        """
+        Получение объекта любимого места по его идентификатору.
+
+        :param place_id: Идентификатор объекта.
+        :return:
+        """
+
+        endpoint = f"/api/v1/places/{place_id}"
+        url = urljoin(self.base_url, endpoint)
+
+        if response := self._request(self.GET, url):
+            if place_data := response.get("data"):
+                return self.__build_model(place_data)
+
+        return None
+
     def get_list(self) -> Optional[list[PlaceModel]]:
         """
         Получение списка любимых мест.

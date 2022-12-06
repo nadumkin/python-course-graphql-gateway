@@ -1,6 +1,7 @@
 from typing import Optional
 
 import graphene
+from graphene import ID, Field
 from graphql import ResolveInfo
 from promise import Promise
 
@@ -67,7 +68,11 @@ class Query(graphene.ObjectType):
     Общий тип для запроса получения данных.
     """
 
+    #: запрос для получения списка объектов любимых мест
     places = graphene.List(Place)
+
+    #: запрос для получения конкретного объекта любимого места по идентификатору
+    place = Field(Place, place_id=ID(required=True))
 
     @staticmethod
     def resolve_places(
@@ -84,3 +89,20 @@ class Query(graphene.ObjectType):
         # pylint: disable=unused-argument
 
         return PlacesService().get_places()
+
+    @staticmethod
+    def resolve_place(
+        parent: Optional[dict], info: ResolveInfo, place_id: int
+    ) -> Optional[PlaceModel]:
+        """
+        Получение объекта любимого места по его идентификатору.
+
+        :param parent: Объект любимого места.
+        :param info: Объект с метаинформацией и данных о контексте запроса.
+        :param place_id: Идентификатор объекта.
+        :return:
+        """
+
+        # pylint: disable=unused-argument
+
+        return PlacesService().get_place(place_id)

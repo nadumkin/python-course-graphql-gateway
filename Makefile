@@ -6,15 +6,15 @@ build:
 
 # генерация документации
 docs-html:
-	docker-compose run --workdir /docs favorite-places-gateway /bin/bash -c "make html"
+	docker-compose run --no-deps --workdir /docs favorite-places-gateway /bin/bash -c "make html"
 
 # запуск форматирования кода
 format:
-	docker-compose run --workdir / favorite-places-gateway /bin/bash -c "black src docs/source/*.py; isort --profile black src docs/source/*.py"
+	docker-compose run --no-deps --workdir / favorite-places-gateway /bin/bash -c "black src docs/source/*.py; isort --profile black src docs/source/*.py"
 
 # запуск статического анализа кода (выявление ошибок типов и форматирования кода)
 lint:
-	docker-compose run --workdir / favorite-places-gateway /bin/bash -c "pylint src; flake8 src; mypy src; black --check src"
+	docker-compose run --no-deps --workdir / favorite-places-gateway /bin/bash -c "pylint src; flake8 src; mypy src; black --check src"
 
 # запуск автоматических тестов
 test:

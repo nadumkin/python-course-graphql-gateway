@@ -9,6 +9,15 @@ class PlacesService:
     Сервис для работы с данными о любимых местах.
     """
 
+    def get_place(self, place_id: int) -> Optional[PlaceModel]:
+        """
+        Получение объекта любимого места по его идентификатору.
+
+        :return:
+        """
+
+        return PlacesClient().get_place(place_id)
+
     def get_places(self) -> Optional[list[PlaceModel]]:
         """
         Получение списка любимых мест.

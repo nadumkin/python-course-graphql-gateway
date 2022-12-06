@@ -87,6 +87,55 @@ query {
 }
 ```
 
+Query example to get specific favorite place: 
+```graphql
+{
+  place(placeId:1) {
+    id
+    latitude
+    longitude
+    description
+    city
+    locality
+  }
+}
+```
+
+Query example to create new favorite place: 
+```graphql
+mutation {
+  createPlace (
+    latitude: 25.20485,
+    longitude: 55.27078,
+    description: "Nice food."
+  ) {
+    place {
+      id
+      latitude
+      longitude
+      description
+      city
+      locality
+    }
+    result
+  }
+}
+```
+
+Query example to delete specific favorite place: 
+```graphql
+mutation {
+  deletePlace(placeId: 1) {
+    result
+  }
+}
+```
+
+Query example to create a favorite place: 
+```graphql
+
+```
+
 This query will request additional information about related countries in optimal way using data loaders to prevent N + 1 requests problem.
 
 ### Automation commands
