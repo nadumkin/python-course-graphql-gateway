@@ -52,7 +52,6 @@ class BaseClient(ABC):
             # получение ответа
             response = client.send(request)
             # проверка статус-кода ответа от сервера
-            # todo: реализовать обработку исключительных ситуаций
             if response.status_code in (
                 HTTPStatus.OK,
                 HTTPStatus.CREATED,
